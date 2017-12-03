@@ -6,14 +6,57 @@
         <clr-tabs>
             <clr-tab>
                 <button clrTabLink id="link1">Пациент</button>
-                <clr-tab-content id="content1" *clrIfActive>
-                    фывыфв
+                <clr-tab-content id="content1" *clrIfActive="true">
+
+                    <form #storyForm="ngForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+                        <section class="form-block">
+                            <label>Приемный покой</label>
+                            <div class="form-group">
+                                <label for="empFirstName">Имя</label>
+                                <label for="empFirstName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)">
+                                    <input type="text" id="empFirstName" placeholder="Enter first name" required name="firstName" [(ngModel)]="model.name"
+                                        #firstNameInput="ngModel">
+                                    <span class="tooltip-content">
+                                        Имя обязательно
+                                    </span>
+                                </label>
+                            </div>
+                            <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid">Сохранить</button>
+                        </section>
+                    </form>
+
+                    <div [hidden]="!submitted">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" class="left">
+                                                Employee Information
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="left">Номер ИБ</td>
+                                            <td class="left">{{model.id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">Имя</td>
+                                            <td class="left">{{model.name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </clr-tab-content>
             </clr-tab>
             <clr-tab>
                 <button clrTabLink>Госпитализация</button>
-                <clr-tab-content *clrIfActive="true">
-                    йцуйцу
+                <clr-tab-content *clrIfActive>
+                    <!-- TODO -->
                 </clr-tab-content>
             </clr-tab>
         </clr-tabs>
@@ -24,24 +67,25 @@
     </div>
 </clr-modal>
 
-<h2>My Heroes</h2>
-
-<div>
-  <label>Hero name:
-    <input #heroName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(heroName.value); heroName.value=''">
-    add
-  </button>
-</div>
-
-<ul class="heroes">
-  <li *ngFor="let story of stories">
-    <a routerLink="/detail/{{story.id}}">
-      <span class="badge">{{story.id}}</span> {{story.name}}
-    </a>
-    <button class="delete" title="delete hero"
-    (click)="delete(story)">x</button>
-  </li>
-</ul>
+<clr-datagrid>
+    <clr-dg-column [clrDgField]="'story.id'" [clrDgSortBy]="storyComparator">
+        Номер ИБ
+    </clr-dg-column>
+    <clr-dg-column>
+        Имя
+        <clr-dg-string-filter [clrDgStringFilter]="storyFilter" [(clrFilterValue)]="myFilterValue">
+        </clr-dg-string-filter>
+    </clr-dg-column>
+    <clr-dg-row *clrDgItems="let story of stories">
+        <clr-dg-cell>{{story.id}}</clr-dg-cell>
+        <clr-dg-cell>{{story.name}}</clr-dg-cell>
+        <clr-dg-row-detail *clrIfExpanded="expand">
+            <button class="btn btn-primary btn-sm" routerLink="/detail/{{story.id}}">Изменить</button>
+            <button class="btn btn-danger btn-sm" (click)="delete(story)">Удалить</button>
+        </clr-dg-row-detail>
+    </clr-dg-row>
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} из {{pagination.totalItems}} записей
+        <clr-dg-pagination #pagination [clrDgPageSize]="5"></clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

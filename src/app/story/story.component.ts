@@ -4,6 +4,9 @@ import { HeaderService } from '../header.service';
 import { Story } from '../story';
 import { StoryService } from '../story.service';
 
+import { StoryComparator } from '../utils/story-comparator';
+import { StoryFilter } from '../utils/story-filter'
+
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
@@ -11,8 +14,23 @@ import { StoryService } from '../story.service';
 })
 export class StoryComponent implements OnInit {
 
+  private storyComparator = new StoryComparator();
+  private storyFilter = new StoryFilter();
+  myFilterValue = "";
+
   public open: boolean = false;
-  
+
+  model: Story = new Story();
+  submitted: boolean = false;
+
+  onSubmit(): void {
+    this.submitted = true;
+    this.storyService.addStory(this.model)
+    .subscribe(story => {
+      this.stories.push(story);
+    });
+  }
+
   stories: Story[];
 
   constructor(
@@ -26,7 +44,7 @@ export class StoryComponent implements OnInit {
 
   getStories(): void {
     this.storyService.getStories()
-    .subscribe(stories => this.stories = stories);
+      .subscribe(stories => this.stories = stories);
   }
 
   add(name: string): void {
