@@ -1,0 +1,47 @@
+<button class="btn btn-primary" (click)="open = true">Добавить</button>
+
+<clr-modal [(clrModalOpen)]="open" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+    <h3 class="modal-title">Новая запись</h3>
+    <div class="modal-body">
+        <clr-tabs>
+            <clr-tab>
+                <button clrTabLink id="link1">Пациент</button>
+                <clr-tab-content id="content1" *clrIfActive>
+                    фывыфв
+                </clr-tab-content>
+            </clr-tab>
+            <clr-tab>
+                <button clrTabLink>Госпитализация</button>
+                <clr-tab-content *clrIfActive="true">
+                    йцуйцу
+                </clr-tab-content>
+            </clr-tab>
+        </clr-tabs>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="open = false">Отменить</button>
+        <button type="button" class="btn btn-primary" (click)="open = false">Сохранить</button>
+    </div>
+</clr-modal>
+
+<h2>My Heroes</h2>
+
+<div>
+  <label>Hero name:
+    <input #heroName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(heroName.value); heroName.value=''">
+    add
+  </button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let story of stories">
+    <a routerLink="/detail/{{story.id}}">
+      <span class="badge">{{story.id}}</span> {{story.name}}
+    </a>
+    <button class="delete" title="delete hero"
+    (click)="delete(story)">x</button>
+  </li>
+</ul>

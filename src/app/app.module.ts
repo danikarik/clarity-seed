@@ -1,29 +1,43 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 import { ClarityModule } from 'clarity-angular';
 import { AppComponent } from './app.component';
 import { ROUTING } from "./app.routing";
-import { HomeComponent } from "./home/home.component";
-import { AboutComponent } from "./about/about.component";
+import { HeaderComponent } from './header/header.component';
+import { HeaderService } from './header.service';
+import { LoginComponent } from './login/login.component';
+import { StoryDetailComponent } from './story-detail/story-detail.component';
+import { StoryService } from "./story.service";
+import { StoryComponent } from './story/story.component';
+import { StorySearchComponent } from './story-search/story-search.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        AboutComponent,
-        HomeComponent
+        HeaderComponent,
+        LoginComponent,
+        StoryDetailComponent,
+        StoryComponent,
+        StorySearchComponent
     ],
     imports: [
         BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
-        HttpModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        HttpClientInMemoryWebApiModule.forRoot(
+            InMemoryDataService, { dataEncapsulation: false }
+        ),
         ClarityModule,
         ROUTING
     ],
-    providers: [],
+    providers: [HeaderService, StoryService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

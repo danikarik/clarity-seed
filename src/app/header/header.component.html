@@ -1,0 +1,18 @@
+<clr-header *ngIf="header.visible">
+  <div class="branding">
+    <a href="#" class="nav-link">
+      <span class="clr-icon clr-clarity-logo"></span>
+      <span class="title">Единая БД</span>
+    </a>
+  </div>
+  <div class="header-nav" [clr-nav-level]="1">
+    <a *ngIf="header.user === 'admin' || header.user === 'nurse'" class="nav-link" href="#" [routerLink]="['/stories']" routerLinkActive="active">
+      <span class="nav-text">Журнал</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <a href="#" class="nav-link nav-text" [routerLink]="['/login']" routerLinkActive="active">
+      Выход
+    </a>
+  </div>
+</clr-header>
