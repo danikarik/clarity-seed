@@ -1,56 +1,106 @@
-<button class="btn btn-primary" (click)="open = true">Добавить</button>
+<button class="btn btn-primary" (click)="open = true; add()">Добавить</button>
 
 <clr-modal [(clrModalOpen)]="open" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
     <h3 class="modal-title">Новая запись</h3>
     <div class="modal-body">
         <clr-tabs>
             <clr-tab>
-                <button clrTabLink id="link1">Пациент</button>
-                <clr-tab-content id="content1" *clrIfActive="true">
-
-                    <form #storyForm="ngForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+                <button clrTabLink>Пациент</button>
+                <clr-tab-content *clrIfActive="true">
+                    <form #storyForm="ngForm" (ngSubmit)="onSubmit(storyForm)">
                         <section class="form-block">
-                            <label>Приемный покой</label>
+                            <label>Данные пациента</label>
                             <div class="form-group">
-                                <label for="empFirstName">Имя</label>
-                                <label for="empFirstName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)">
-                                    <input type="text" id="empFirstName" placeholder="Enter first name" required name="firstName" [(ngModel)]="model.name"
-                                        #firstNameInput="ngModel">
+                                <label class="required" for="lastName">Фамилия</label>
+                                <label for="lastName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)">
+                                    <input type="text" id="lastName" placeholder="Введите фамилию пациента" name="lastName" [(ngModel)]="model.lastName" #lastNameInput="ngModel" required>
                                     <span class="tooltip-content">
-                                        Имя обязательно
+                                        Обязательное поле
                                     </span>
                                 </label>
                             </div>
-                            <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid">Сохранить</button>
+                            <div class="form-group">
+                                <label class="required" for="firstName">Имя</label>
+                                <label for="firstName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)">
+                                    <input type="text" id="firstName" placeholder="Введите имя пациента" name="firstName" [(ngModel)]="model.firstName" #firstNameInput="ngModel" required>
+                                    <span class="tooltip-content">
+                                        Обязательное поле
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="required" for="middleName">Отчество</label>
+                                <label for="middleName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="middleNameInput.invalid && (middleNameInput.dirty || middleNameInput.touched)">
+                                    <input type="text" id="middleName" placeholder="Введите отчество пациента" name="middleName" [(ngModel)]="model.middleName" #middleNameInput="ngModel" required>
+                                    <span class="tooltip-content">
+                                        Обязательное поле
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="required" for="birthDate">Дата рождения</label>
+                                <label for="birthDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="birthDateInput.invalid && (birthDateInput.dirty || birthDateInput.touched)">
+                                    <input type="date" id="birthDate" name="birthDate" (change)="calculateAge()" [(ngModel)]="model.birthDate" #birthDateInput="ngModel" required>
+                                    <span class="tooltip-content">
+                                        Обязательное поле
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="required" for="age">Возраст</label>
+                                <label for="age" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="ageInput.invalid && (ageInput.dirty || ageInput.touched)">
+                                    <input type="number" id="age" name="age" [(ngModel)]="model.age" #ageInput="ngModel" required>
+                                    <span class="tooltip-content">
+                                        Обязательное поле
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="required">Пол</label>
+                                <div class="radio-inline">
+                                    <input type="radio" name="gender" id="male" [value]="1" [(ngModel)]="model.gender" #genderInput="ngModel">
+                                    <label for="male">Мужской</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <input type="radio" name="gender" id="female" [value]="2" [(ngModel)]="model.gender" #genderInput="ngModel">
+                                    <label for="female">Женский</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="required" for="nationality">Национальность</label>
+                                <div class="select">
+                                    <select id="nationality" name="nationality" [(ngModel)]="model.nationality" required>
+                                        <option value="">Выберите значение</option>
+                                        <option *ngFor="let nation of nationality" [value]="nation">{{nation}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="required" for="regDate">Дата регистрации</label>
+                                <label for="regDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="regDateInput.invalid && (regDateInput.dirty || regDateInput.touched)">
+                                    <input type="date" id="regDate" name="regDate" [(ngModel)]="model.regDate" #regDateInput="ngModel" required>
+                                    <span class="tooltip-content">
+                                        Обязательное поле
+                                    </span>
+                                </label>
+                            </div>
+                            <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid || submitted">
+                                Сохранить
+                            </button>
                         </section>
                     </form>
-
                     <div [hidden]="!submitted">
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2" class="left">
-                                                Employee Information
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="left">Номер ИБ</td>
-                                            <td class="left">{{model.id}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="left">Имя</td>
-                                            <td class="left">{{model.name}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="alert alert-success">
+                            <div class="alert-items">
+                                <div class="alert-item static">
+                                    <div class="alert-icon-wrapper">
+                                        <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                                    </div>
+                                    <span class="alert-text">Запись успешно добавлена/изменена</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </clr-tab-content>
             </clr-tab>
             <clr-tab>
@@ -62,8 +112,7 @@
         </clr-tabs>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline" (click)="open = false">Отменить</button>
-        <button type="button" class="btn btn-primary" (click)="open = false">Сохранить</button>
+        <button type="button" class="btn btn-primary" (click)="open = false">Готово</button>
     </div>
 </clr-modal>
 
@@ -76,16 +125,20 @@
         <clr-dg-string-filter [clrDgStringFilter]="storyFilter" [(clrFilterValue)]="myFilterValue">
         </clr-dg-string-filter>
     </clr-dg-column>
+    <clr-dg-column>Дата рождения</clr-dg-column>
+    <clr-dg-column>Пол</clr-dg-column>
     <clr-dg-row *clrDgItems="let story of stories">
         <clr-dg-cell>{{story.id}}</clr-dg-cell>
         <clr-dg-cell>{{story.name}}</clr-dg-cell>
+        <clr-dg-cell>{{story.birthDate}}</clr-dg-cell>
+        <clr-dg-cell>{{genderLabel}}</clr-dg-cell>
         <clr-dg-row-detail *clrIfExpanded="expand">
-            <button class="btn btn-primary btn-sm" routerLink="/detail/{{story.id}}">Изменить</button>
+            <button class="btn btn-primary btn-sm" (click)="edit(story)">Изменить</button>
             <button class="btn btn-danger btn-sm" (click)="delete(story)">Удалить</button>
         </clr-dg-row-detail>
     </clr-dg-row>
     <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} из {{pagination.totalItems}} записей
-        <clr-dg-pagination #pagination [clrDgPageSize]="5"></clr-dg-pagination>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>

@@ -15,6 +15,7 @@ import { StoryDetailComponent } from './story-detail/story-detail.component';
 import { StoryService } from "./story.service";
 import { StoryComponent } from './story/story.component';
 import { StorySearchComponent } from './story-search/story-search.component';
+import { DictService } from './dict.service';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,7 @@ import { StorySearchComponent } from './story-search/story-search.component';
         ClarityModule,
         ROUTING
     ],
-    providers: [HeaderService, StoryService],
+    providers: [HeaderService, StoryService, DictService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

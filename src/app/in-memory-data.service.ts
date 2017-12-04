@@ -1,18 +1,27 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { Date } from 'core-js/library/web/timers';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const stories = [
-      { id: 11, name: 'Mr. Nice' },
-      { id: 12, name: 'Narco' },
-      { id: 13, name: 'Bombasto' },
-      { id: 14, name: 'Celeritas' },
-      { id: 15, name: 'Magneta' },
-      { id: 16, name: 'RubberMan' },
-      { id: 17, name: 'Dynama' },
-      { id: 18, name: 'Dr IQ' },
-      { id: 19, name: 'Magma' },
-      { id: 20, name: 'Tornado' }
+      { 
+        id: 11,
+        receiptDate: "01.12.2017 11:22:00",
+        dischargeDate: "04.12.2017 11:22:00",
+        department: "Хоз рассчет",
+        ward: "110",
+        cotDays: 3,
+        bloodGroup: "4",
+        rH: true,
+        name: "Ivanov Ivan",
+        age: 25,
+        diagnosis: "bolen",
+        emergency: true,
+        plan: false,
+        firstTime: true,
+        initialTreatment: "doma",
+        doctor: "iBolit",
+      }
     ];
     return {stories};
   }

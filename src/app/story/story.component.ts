@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HeaderService } from '../header.service';
 import { Story } from '../story';
 import { StoryService } from '../story.service';
+import { HeaderService } from '../header.service';
 
 import { StoryComparator } from '../utils/story-comparator';
 import { StoryFilter } from '../utils/story-filter'
+
+import { DictService } from '../dict.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
   selector: 'app-story',
@@ -14,28 +17,47 @@ import { StoryFilter } from '../utils/story-filter'
 })
 export class StoryComponent implements OnInit {
 
-  private storyComparator = new StoryComparator();
-  private storyFilter = new StoryFilter();
-  myFilterValue = "";
-
   public open: boolean = false;
 
-  model: Story = new Story();
-  submitted: boolean = false;
+  private storyComparator = new StoryComparator();
+  private storyFilter = new StoryFilter();
 
-  onSubmit(): void {
-    this.submitted = true;
-    this.storyService.addStory(this.model)
-    .subscribe(story => {
-      this.stories.push(story);
-    });
-  }
+  myFilterValue = "";
+
+  model: Story = new Story();
+
+  submitted: boolean = false;
 
   stories: Story[];
 
+  nationality = this.dictService.getNationality();
+
+  genderLabel = "";
+
+  isEditting: boolean = false;
+
+  onSubmit(form: NgForm): void {
+    this.submitted = true;
+    this.model.name = this.model.lastName + " " + this.model.firstName + " " + this.model.middleName;
+    if (this.model.gender === 1) {
+      this.genderLabel = "Мужской";
+    } else { this.genderLabel = "Женский"; }
+    if (!this.isEditting) {
+      this.storyService.addStory(this.model)
+        .subscribe(story => {
+          this.stories.push(story);
+        });
+      form.reset();
+    } else {
+      this.storyService.updateStory(this.model)
+      .subscribe(() => this.goBack(this.model));
+    }
+  }
+
   constructor(
     public header: HeaderService,
-    private storyService: StoryService) { }
+    private storyService: StoryService,
+    private dictService: DictService) { }
 
   ngOnInit() {
     this.header.show();
@@ -47,18 +69,37 @@ export class StoryComponent implements OnInit {
       .subscribe(stories => this.stories = stories);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.storyService.addStory({ name } as Story)
-      .subscribe(story => {
-        this.stories.push(story);
-      });
+  goBack(story: Story): void {
+    this.model = story;
+  }
+
+  add() {
+    this.model = new Story();
+    this.isEditting = false;
+    this.submitted = false;
+  }
+
+  edit(story: Story): void {
+    this.isEditting = true;
+    this.model = story;
+    this.open = true;
+    this.submitted = false;
   }
 
   delete(story: Story): void {
     this.stories = this.stories.filter(h => h !== story);
     this.storyService.deleteStory(story).subscribe();
+  }
+
+  calculateAge() {
+    if (this.model.birthDate) {
+      var today = new Date();
+      var birthDate = new Date(this.model.birthDate);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var month = today.getMonth() - birthDate.getMonth();
+      if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) { age--; }
+      this.model.age = age;
+    }
   }
 
 }
