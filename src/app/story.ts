@@ -31,8 +31,9 @@ export class Story {
   lastVisit: string;
   // Доп. поля
   socialStatus: string;
-  // 
+  // Примный покой
   receiptDate: string;
+  // 
   dischargeDate: string;
   department: string;
   ward: string;

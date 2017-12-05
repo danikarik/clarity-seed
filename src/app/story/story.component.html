@@ -241,7 +241,43 @@
             <clr-tab>
                 <button clrTabLink>Госпитализация</button>
                 <clr-tab-content *clrIfActive>
-                    <!-- TODO -->
+                    <form #storyForm="ngForm" (ngSubmit)="onSubmit(storyForm)" class="compact row">
+                        <section class="form-block col-xs-6">
+                            <fieldset>
+                                <label>Примный покой</label>
+                                <div class="form-group">
+                                    <label class="required" for="receiptDate">Дата поступления</label>
+                                    <label for="receiptDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="receiptDateInput.invalid && (receiptDateInput.dirty || receiptDateInput.touched)">
+                                        <input type="date" id="receiptDate" name="receiptDate" [(ngModel)]="model.receiptDate" #receiptDateInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <!-- TODO -->
+                            </fieldset>
+                        </section>
+                        <section class="form-block col-xs-6">
+
+                        </section>
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid || submitted">
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                    <div [hidden]="!submitted">
+                        <div class="alert alert-success">
+                            <div class="alert-items">
+                                <div class="alert-item static">
+                                    <div class="alert-icon-wrapper">
+                                        <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                                    </div>
+                                    <span class="alert-text">Запись успешно добавлена/изменена</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </clr-tab-content>
             </clr-tab>
         </clr-tabs>
@@ -262,11 +298,13 @@
     </clr-dg-column>
     <clr-dg-column>Дата рождения</clr-dg-column>
     <clr-dg-column>Пол</clr-dg-column>
+    <clr-dg-column>Дата поступления</clr-dg-column>
     <clr-dg-row *clrDgItems="let story of stories">
         <clr-dg-cell>{{story.id}}</clr-dg-cell>
         <clr-dg-cell>{{story.name}}</clr-dg-cell>
         <clr-dg-cell>{{story.birthDate}}</clr-dg-cell>
         <clr-dg-cell>{{genderLabel}}</clr-dg-cell>
+        <clr-dg-cell>{{story.receiptDate}}</clr-dg-cell>
         <clr-dg-row-detail *clrIfExpanded="expand">
             <button class="btn btn-primary btn-sm" (click)="edit(story)">Изменить</button>
             <button class="btn btn-danger btn-sm" (click)="delete(story)">Удалить</button>
