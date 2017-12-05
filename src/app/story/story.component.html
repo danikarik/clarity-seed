@@ -1,93 +1,228 @@
 <button class="btn btn-primary" (click)="open = true; add()">Добавить</button>
 
 <clr-modal [(clrModalOpen)]="open" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
-    <h3 class="modal-title">Новая запись</h3>
+    <h3 class="modal-title">Регистрация истории болезни</h3>
     <div class="modal-body">
         <clr-tabs>
             <clr-tab>
                 <button clrTabLink>Пациент</button>
                 <clr-tab-content *clrIfActive="true">
-                    <form #storyForm="ngForm" (ngSubmit)="onSubmit(storyForm)">
-                        <section class="form-block">
-                            <label>Данные пациента</label>
-                            <div class="form-group">
-                                <label class="required" for="lastName">Фамилия</label>
-                                <label for="lastName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)">
-                                    <input type="text" id="lastName" placeholder="Введите фамилию пациента" name="lastName" [(ngModel)]="model.lastName" #lastNameInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="firstName">Имя</label>
-                                <label for="firstName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)">
-                                    <input type="text" id="firstName" placeholder="Введите имя пациента" name="firstName" [(ngModel)]="model.firstName" #firstNameInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="middleName">Отчество</label>
-                                <label for="middleName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="middleNameInput.invalid && (middleNameInput.dirty || middleNameInput.touched)">
-                                    <input type="text" id="middleName" placeholder="Введите отчество пациента" name="middleName" [(ngModel)]="model.middleName" #middleNameInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="birthDate">Дата рождения</label>
-                                <label for="birthDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="birthDateInput.invalid && (birthDateInput.dirty || birthDateInput.touched)">
-                                    <input type="date" id="birthDate" name="birthDate" (change)="calculateAge()" [(ngModel)]="model.birthDate" #birthDateInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="age">Возраст</label>
-                                <label for="age" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="ageInput.invalid && (ageInput.dirty || ageInput.touched)">
-                                    <input type="number" id="age" name="age" [(ngModel)]="model.age" #ageInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="required">Пол</label>
-                                <div class="radio-inline">
-                                    <input type="radio" name="gender" id="male" [value]="1" [(ngModel)]="model.gender" #genderInput="ngModel">
-                                    <label for="male">Мужской</label>
+                    <form #storyForm="ngForm" (ngSubmit)="onSubmit(storyForm)" class="compact row">
+                        <section class="form-block col-xs-6">
+                            <fieldset>
+                                <label>Данные пациента</label>
+                                <div class="form-group">
+                                    <label class="required" for="lastName">Фамилия</label>
+                                    <label for="lastName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)">
+                                        <input type="text" id="lastName" placeholder="Введите фамилию пациента" name="lastName" [(ngModel)]="model.lastName" #lastNameInput="ngModel"
+                                            required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
                                 </div>
-                                <div class="radio-inline">
-                                    <input type="radio" name="gender" id="female" [value]="2" [(ngModel)]="model.gender" #genderInput="ngModel">
-                                    <label for="female">Женский</label>
+                                <div class="form-group">
+                                    <label class="required" for="firstName">Имя</label>
+                                    <label for="firstName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)">
+                                        <input type="text" id="firstName" placeholder="Введите имя пациента" name="firstName" [(ngModel)]="model.firstName" #firstNameInput="ngModel"
+                                            required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="nationality">Национальность</label>
-                                <div class="select">
-                                    <select id="nationality" name="nationality" [(ngModel)]="model.nationality" required>
-                                        <option value="">Выберите значение</option>
-                                        <option *ngFor="let nation of nationality" [value]="nation">{{nation}}</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="required" for="middleName">Отчество</label>
+                                    <label for="middleName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="middleNameInput.invalid && (middleNameInput.dirty || middleNameInput.touched)">
+                                        <input type="text" id="middleName" placeholder="Введите отчество пациента" name="middleName" [(ngModel)]="model.middleName"
+                                            #middleNameInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="required" for="regDate">Дата регистрации</label>
-                                <label for="regDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="regDateInput.invalid && (regDateInput.dirty || regDateInput.touched)">
-                                    <input type="date" id="regDate" name="regDate" [(ngModel)]="model.regDate" #regDateInput="ngModel" required>
-                                    <span class="tooltip-content">
-                                        Обязательное поле
-                                    </span>
-                                </label>
-                            </div>
+                                <div class="form-group">
+                                    <label class="required" for="birthDate">Дата рождения</label>
+                                    <label for="birthDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="birthDateInput.invalid && (birthDateInput.dirty || birthDateInput.touched)">
+                                        <input type="date" id="birthDate" name="birthDate" (change)="calculateAge()" [(ngModel)]="model.birthDate" #birthDateInput="ngModel"
+                                            required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required" for="age">Возраст</label>
+                                    <label for="age" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="ageInput.invalid && (ageInput.dirty || ageInput.touched)">
+                                        <input type="number" id="age" name="age" [(ngModel)]="model.age" #ageInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Пол</label>
+                                    <div class="radio-inline">
+                                        <input type="radio" name="gender" id="male" [value]="1" [(ngModel)]="model.gender">
+                                        <label for="male">Мужской</label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <input type="radio" name="gender" id="female" [value]="2" [(ngModel)]="model.gender">
+                                        <label for="female">Женский</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required" for="nationality">Национальность</label>
+                                    <div class="select">
+                                        <select id="nationality" name="nationality" [(ngModel)]="model.nationality" required>
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let nation of nationality" [value]="nation">{{nation}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required" for="regDate">Дата регистрации</label>
+                                    <label for="regDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="regDateInput.invalid && (regDateInput.dirty || regDateInput.touched)">
+                                        <input type="date" id="regDate" name="regDate" [(ngModel)]="model.regDate" #regDateInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <label>Постоянное место жительства</label>
+                                <div class="form-group">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" id="resident" name="resident" [(ngModel)]="model.isResident">
+                                        <label for="resident">Резидент</label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" id="city" name="city" [(ngModel)]="model.inCity">
+                                        <label for="city">Город</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="region">Область</label>
+                                    <div class="select">
+                                        <select id="region" name="region" [(ngModel)]="model.region">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let reg of regions" [value]="reg">{{reg}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="district">Район, г.</label>
+                                    <div class="select">
+                                        <select id="district" name="district" [(ngModel)]="model.district">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let distr of districts" [value]="distr">{{distr}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="street">Улица, дом, кв.</label>
+                                    <input type="text" id="street" placeholder="Введите адрес пациента" name="street" [(ngModel)]="model.street">
+                                </div>
+                                <div class="form-group">
+                                    <label for="homePhone">Тел. дом</label>
+                                    <input type="text" id="homePhone" placeholder="Введите домашний номер" name="homePhone" [(ngModel)]="model.homePhone">
+                                </div>
+                            </fieldset>
+                        </section>
+                        <section class="form-block col-xs-6">
+                            <fieldset>
+                                <label>Документ</label>
+                                <div class="form-group">
+                                    <label class="required" for="docType">Тип документа</label>
+                                    <div class="select">
+                                        <select id="docType" name="docType" [(ngModel)]="model.docType" required>
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let doct of docTypes" [value]="doct">{{doct}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required" for="docNumber">Номер</label>
+                                    <label for="docNumber" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="docNumberInput.invalid && (docNumberInput.dirty || docNumberInput.touched)">
+                                        <input type="text" id="docNumber" name="docNumber" [(ngModel)]="model.docNumber" #docNumberInput="ngModel" placeholder="Введите номер документа"
+                                            required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required" for="docIIN">ИИН</label>
+                                    <label class="col-xs-6" for="docIIN" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="docIINInput.invalid && (docIINInput.dirty || docIINInput.touched)">
+                                        <input type="text" id="docIIN" name="docIIN" [(ngModel)]="model.docIIN" #docIINInput="ngModel" placeholder="Введите ИИН"
+                                            required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="docSeries">Серия</label>
+                                    <input type="text" id="docSeries" name="docSeries" [(ngModel)]="model.docSeries" placeholder="Введите серию документа">
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <label>Полис</label>
+                                <div class="form-group">
+                                    <label for="insuranceNumber">Страховой полис</label>
+                                    <input type="text" id="insuranceNumber" name="insuranceNumber" [(ngModel)]="model.insuranceNumber" placeholder="Введите номер полиса">
+                                </div>
+                                <div class="form-group">
+                                    <label for="insuranceCompany">Наименование страховой компании</label>
+                                    <div class="select">
+                                        <select id="insuranceCompany" name="insuranceCompany" [(ngModel)]="model.insuranceCompany">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let ic of insuranceCompanies" [value]="ic">{{ic}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <br>
+                            <fieldset>
+                                <label>Место работы</label>
+                                <div class="form-group">
+                                    <label for="workPlace">Место работы</label>
+                                    <input type="text" name="workPlace" id="workPlace" [(ngModel)]="model.workPlace" placeholder="Введите место работы">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workPosition">Профессия / должность</label>
+                                    <input type="text" name="workPosition" id="workPosition" [(ngModel)]="model.workPosition" placeholder="Введите должность или профессию">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workNumber">Рабочий телефон</label>
+                                    <input type="text" name="workNumber" id="workNumber" [(ngModel)]="model.workNumber" placeholder="Введите рабочий номер тел.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastVisit">Дата последнего посещения</label>
+                                    <input type="date" name="lastVisit" id="lastVisit" [(ngModel)]="model.lastVisit">
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="socialStatus">Социальный статус</label>
+                                    <div class="select">
+                                        <select id="socialStatus" name="socialStatus" [(ngModel)]="model.socialStatus">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let status of socialStatutes" [value]="status">{{status}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </section>
+                        <div class="col-xs-6">
                             <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid || submitted">
                                 Сохранить
                             </button>
-                        </section>
+                        </div>
                     </form>
                     <div [hidden]="!submitted">
                         <div class="alert alert-success">

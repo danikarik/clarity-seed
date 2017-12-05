@@ -9,6 +9,28 @@ export class Story {
   gender: number;
   nationality: string;
   regDate: string;
+  // Постоянное место жительства
+  isResident: boolean;
+  inCity: boolean;
+  region: string;
+  district: string;
+  street: string;
+  homePhone: string;
+  // Документ
+  docType: string;
+  docNumber: string;
+  docIIN: string;
+  docSeries: string;
+  // Полис
+  insuranceNumber: string;
+  insuranceCompany: string;
+  // Место работы
+  workPlace: string;
+  workPosition: string;
+  workNumber: string;
+  lastVisit: string;
+  // Доп. поля
+  socialStatus: string;
   // 
   receiptDate: string;
   dischargeDate: string;

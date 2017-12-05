@@ -31,6 +31,11 @@ export class StoryComponent implements OnInit {
   stories: Story[];
 
   nationality = this.dictService.getNationality();
+  regions = this.dictService.getRegions();
+  districts = this.dictService.getDistricts();
+  docTypes = this.dictService.getDocTypes();
+  insuranceCompanies = this.dictService.getInsuranceCompanies();
+  socialStatutes = this.dictService.getSocialStatutes();
 
   genderLabel = "";
 
