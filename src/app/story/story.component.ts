@@ -36,17 +36,25 @@ export class StoryComponent implements OnInit {
   docTypes = this.dictService.getDocTypes();
   insuranceCompanies = this.dictService.getInsuranceCompanies();
   socialStatutes = this.dictService.getSocialStatutes();
-
-  genderLabel = "";
+  nurses = this.dictService.getNurses();
+  addrFroms = this.dictService.getAddrFroms();
+  emergencyTypes = this.dictService.getEmergencyTypes();
+  departments = this.dictService.getDepartments();
+  profiles = this.dictService.getProfiles();
+  wards = this.dictService.getWards();
+  finsources = this.dictService.getFinsources();
+  injuryTypes = this.dictService.getInjuryTypes();
+  transportTypes = this.dictService.getTransportTypes();
+  bloodGroups = this.dictService.getBloodGroups()
+  dischargeResults = this.dictService.getDischargeResults();
+  dischargeTreatments = this.dictService.getDischargeTreatments();
+  doctors = this.dictService.getDoctors();
 
   isEditting: boolean = false;
 
   onSubmit(form: NgForm): void {
     this.submitted = true;
     this.model.name = this.model.lastName + " " + this.model.firstName + " " + this.model.middleName;
-    if (this.model.gender === 1) {
-      this.genderLabel = "Мужской";
-    } else { this.genderLabel = "Женский"; }
     if (!this.isEditting) {
       this.storyService.addStory(this.model)
         .subscribe(story => {
@@ -98,13 +106,21 @@ export class StoryComponent implements OnInit {
 
   calculateAge() {
     if (this.model.birthDate) {
-      var today = new Date();
-      var birthDate = new Date(this.model.birthDate);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var month = today.getMonth() - birthDate.getMonth();
+      let today = new Date();
+      let birthDate = new Date(this.model.birthDate);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let month = today.getMonth() - birthDate.getMonth();
       if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) { age--; }
       this.model.age = age;
     }
+  }
+
+  calculateDays() {
+      if (this.model.receiptDateDep && this.model.dischargeDate) {
+        let inDate = new Date(this.model.receiptDateDep);
+        let outDate = new Date(this.model.dischargeDate);
+        this.model.dischargeDays = outDate.getDate() - inDate.getDate();
+      }
   }
 
 }

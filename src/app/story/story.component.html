@@ -244,7 +244,7 @@
                     <form #storyForm="ngForm" (ngSubmit)="onSubmit(storyForm)" class="compact row">
                         <section class="form-block col-xs-6">
                             <fieldset>
-                                <label>Примный покой</label>
+                                <label>Приемный покой</label>
                                 <div class="form-group">
                                     <label class="required" for="receiptDate">Дата поступления</label>
                                     <label for="receiptDate" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="receiptDateInput.invalid && (receiptDateInput.dirty || receiptDateInput.touched)">
@@ -254,11 +254,259 @@
                                         </span>
                                     </label>
                                 </div>
+                                <div class="form-group">
+                                    <label class="required" for="receiptTime">Время поступления</label>
+                                    <label for="receiptTime" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="receiptTimeInput.invalid && (receiptTimeInput.dirty || receiptTimeInput.touched)">
+                                        <input type="time" id="receiptTime" name="receiptTime" [(ngModel)]="model.receiptTime" #receiptTimeInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="height">Рост, см</label>
+                                    <input type="number" name="height" id="height" [(ngModel)]="model.height">
+                                </div>
+                                <div class="form-group">
+                                    <label for="weight">Вес, кг</label>
+                                    <input type="number" name="weight" id="weight" [(ngModel)]="model.weight">
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" id="itch" name="itch" [(ngModel)]="model.itch">
+                                        <label for="itch">Чесотка</label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" id="pediculosis" name="pediculosis" [(ngModel)]="model.pediculosis">
+                                        <label for="pediculosis">Педикулез</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nurse">Медсестра</label>
+                                    <div class="select">
+                                        <select id="nurse" name="nurse" [(ngModel)]="model.nurse">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let nurse of nurses" [value]="nurse">{{nurse}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <!-- TODO -->
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <label>Поступление</label>
+                                <div class="form-group">
+                                    <label for="addressedFrom">Пациент направлен</label>
+                                    <div class="select">
+                                        <select id="addressedFrom" name="addressedFrom" [(ngModel)]="model.addressedFrom">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let addr of addrFroms" [value]="addr">{{addr}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addressedWhom">Кем направлен</label>
+                                    <input type="text" name="addressedWhom" id="addressedWhom" [(ngModel)]="model.addressedWhom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="directionNumber">Номер направления</label>
+                                    <input type="number" id="directionNumber" name="directionNumber" [(ngModel)]="model.directionNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label for="directionDate">Дата направления</label>
+                                    <input type="date" name="directionDate" [(ngModel)]="model.directionDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="receiptDateDep">Дата поступления в отд.</label>
+                                    <input type="date" id="receiptDateDep" name="receiptDateDep" [(ngModel)]="model.receiptDateDep">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="receiptTimeDep">Время поступления в отд.</label>
+                                    <input type="time" id="receiptTimeDep" name="receiptTimeDep" [(ngModel)]="model.receiptTimeDep">
+                                </div>
+                                <div class="form-group">
+                                    <label for="illnessDate">Дата заболевания</label>
+                                    <input type="date" id="illnessDate" name="illnessDate" [(ngModel)]="model.illnessDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="emergencyType">Тип госпитализации</label>
+                                    <div class="select">
+                                        <select id="emergencyType" name="emergencyType" [(ngModel)]="model.emergencyType">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let emrg of emergencyTypes" [value]="emrg">{{emrg}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="department">Направлен в отделение</label>
+                                    <div class="select">
+                                        <select id="department" name="department" [(ngModel)]="model.department">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let dep of departments" [value]="dep">{{dep}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile">Профиль койки</label>
+                                    <div class="select">
+                                        <select id="profile" name="profile" [(ngModel)]="model.profile">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let prof of profiles" [value]="prof">{{prof}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ward">Палата</label>
+                                    <div class="select">
+                                        <select id="ward" name="ward" [(ngModel)]="model.ward">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let wrd of wards" [value]="wrd">{{wrd}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="finsource">Направлен в отделение</label>
+                                    <div class="select">
+                                        <select id="finsource" name="finsource" [(ngModel)]="model.finsource">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let fin of finsources" [value]="fin">{{fin}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </fieldset>
                         </section>
                         <section class="form-block col-xs-6">
-
+                            <fieldset>
+                                <label>Доставлен в стационар</label>
+                                <div class="form-group row">
+                                    <div class="col-xs-6">
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" name="emergency" id="emergency" [(ngModel)]="model.emergency">
+                                            <label for="emergency">во экстр. показаниям</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="toggle-switch">
+                                            <input type="checkbox" name="plan" id="plan" [(ngModel)]="model.plan">
+                                            <label for="plan">в плановом порядке</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-xs-6">
+                                        <label for="injuryType">Вид травмы</label>
+                                        <div class="select">
+                                            <select id="injuryType" name="injuryType" [(ngModel)]="model.injuryType">
+                                                <option value="">Выберите значение</option>
+                                                <option *ngFor="let inj of injuryTypes" [value]="inj">{{inj}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label for="transportType">Вид транспорт</label>
+                                        <div class="select">
+                                            <select id="transportType" name="transportType" [(ngModel)]="model.transportType">
+                                                <option value="">Выберите значение</option>
+                                                <option *ngFor="let trans of transportTypes" [value]="trans">{{trans}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-xs-6">
+                                        <label for="bloodGroup">Группа крови</label>
+                                        <div class="select">
+                                            <select id="bloodGroup" name="bloodGroup" [(ngModel)]="model.bloodGroup">
+                                                <option value="">Выберите значение</option>
+                                                <option *ngFor="let grp of bloodGroups" [value]="grp">{{grp}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="rH" id="rH" [value]="1" [(ngModel)]="model.rH">
+                                            <label for="rH">Резус фактор</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <label>Выписка</label>
+                                <div class="form-group row">
+                                    <div class="col-xs-4">
+                                        <label for="dischargeDate">Дата выписки</label>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="date" name="dischargeDate" id="dischargeDate" [(ngModel)]="model.dischargeDate" (change)="calculateDays()">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="time" name="dischargeTime" id="dischargeTime" [(ngModel)]="model.dischargeTime">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label for="dischargeDays">Койко-дни</label>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <input type="number" name="dischargeDays" id="dischargeDays" [(ngModel)]="model.dischargeDays">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label for="dischargeResult">Исход прибывания</label>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="select">
+                                            <select id="dischargeResult" name="dischargeResult" [(ngModel)]="model.dischargeResult">
+                                                <option value="">Выберите значение</option>
+                                                <option *ngFor="let disr of dischargeResults" [value]="disr">{{disr}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label for="dischargeTreatment">Исход лечения</label>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="select">
+                                            <select id="dischargeTreatment" name="dischargeTreatment" [(ngModel)]="model.dischargeTreatment">
+                                                <option value="">Выберите значение</option>
+                                                <option *ngFor="let dist of dischargeTreatments" [value]="dist">{{dist}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br>
+                            <fieldset>
+                                <label>Больничный лист</label>
+                                <div class="form-group">
+                                    <label for="sickListNumber">Номер БЛ</label>
+                                    <input type="number" name="sickListNumber" id="sickListNumber" [(ngModel)]="model.sickListNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sickListRegDate">Дата регистрации</label>
+                                    <input type="date" name="sickListRegDate" id="sickListRegDate" [(ngModel)]="model.sickListRegDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sickListOpenDate">Дата открытия</label>
+                                    <input type="date" name="sickListOpenDate" id="sickListOpenDate" [(ngModel)]="model.sickListOpenDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sickListCloseDate">Дата закрытия</label>
+                                    <input type="date" name="sickListCloseDate" id="sickListCloseDate" [(ngModel)]="model.sickListCloseDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stationaryDays">Кол-во дней стационара</label>
+                                    <input type="number" name="stationaryDays" id="stationaryDays" [(ngModel)]="model.stationaryDays">
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctor">Врач</label>
+                                    <div class="select">
+                                        <select name="doctor" id="doctor" [(ngModel)]="model.doctor">
+                                            <option value="">Выберите значение</option>
+                                            <option *ngFor="let doctor of doctors" [value]="doctor">{{doctor}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </section>
                         <div class="col-xs-6">
                             <button class="btn btn-primary" type="submit" [disabled]="storyForm.form.invalid || submitted">
@@ -291,20 +539,53 @@
     <clr-dg-column [clrDgField]="'story.id'" [clrDgSortBy]="storyComparator">
         Номер ИБ
     </clr-dg-column>
+    <clr-dg-column>Дата и время пост.</clr-dg-column>
+    <clr-dg-column>Дата и время вып.</clr-dg-column>
+    <clr-dg-column>Отделение</clr-dg-column>
+    <clr-dg-column>Палата</clr-dg-column>
+    <clr-dg-column>Койко-дни</clr-dg-column>
+    <clr-dg-column>Группа крови</clr-dg-column>
+    <clr-dg-column>Rh</clr-dg-column>
     <clr-dg-column>
-        Имя
-        <clr-dg-string-filter [clrDgStringFilter]="storyFilter" [(clrFilterValue)]="myFilterValue">
-        </clr-dg-string-filter>
+        Пациент
+        <clr-dg-string-filter [clrDgStringFilter]="storyFilter" [(clrFilterValue)]="myFilterValue"></clr-dg-string-filter>
     </clr-dg-column>
-    <clr-dg-column>Дата рождения</clr-dg-column>
-    <clr-dg-column>Пол</clr-dg-column>
-    <clr-dg-column>Дата поступления</clr-dg-column>
+    <clr-dg-column>Возраст</clr-dg-column>
+    <clr-dg-column>Экст.</clr-dg-column>
+    <clr-dg-column>План.</clr-dg-column>
+    <clr-dg-column>Исход лечения</clr-dg-column>
+    <clr-dg-column>Лечащий врач</clr-dg-column>
+
     <clr-dg-row *clrDgItems="let story of stories">
         <clr-dg-cell>{{story.id}}</clr-dg-cell>
+        <clr-dg-cell>{{story.receiptDate}} {{story.receiptTime}}</clr-dg-cell>
+        <clr-dg-cell>{{story.dischargeDate}} {{story.dischargeTime}}</clr-dg-cell>
+        <clr-dg-cell>{{story.department}}</clr-dg-cell>
+        <clr-dg-cell>{{story.ward}}</clr-dg-cell>
+        <clr-dg-cell>{{story.dischargeDays}}</clr-dg-cell>
+        <clr-dg-cell>{{story.bloodGroup}}</clr-dg-cell>
+        <clr-dg-cell *ngIf="story.rH == true">
+            <clr-icon shape="check"></clr-icon>
+        </clr-dg-cell>
+        <clr-dg-cell *ngIf="story.rH == false">
+            <clr-icon shape="minus"></clr-icon>
+        </clr-dg-cell>
         <clr-dg-cell>{{story.name}}</clr-dg-cell>
-        <clr-dg-cell>{{story.birthDate}}</clr-dg-cell>
-        <clr-dg-cell>{{genderLabel}}</clr-dg-cell>
-        <clr-dg-cell>{{story.receiptDate}}</clr-dg-cell>
+        <clr-dg-cell>{{story.age}}</clr-dg-cell>
+        <clr-dg-cell *ngIf="story.emergency == true">
+            <clr-icon shape="check"></clr-icon>
+        </clr-dg-cell>
+        <clr-dg-cell *ngIf="story.emergency == false">
+            <clr-icon shape="minus"></clr-icon>
+        </clr-dg-cell>
+        <clr-dg-cell *ngIf="story.plan == true">
+            <clr-icon shape="check"></clr-icon>
+        </clr-dg-cell>
+        <clr-dg-cell *ngIf="story.plan == false">
+            <clr-icon shape="minus"></clr-icon>
+        </clr-dg-cell>
+        <clr-dg-cell>{{story.dischargeTreatment}}</clr-dg-cell>
+        <clr-dg-cell>{{story.doctor}}</clr-dg-cell>
         <clr-dg-row-detail *clrIfExpanded="expand">
             <button class="btn btn-primary btn-sm" (click)="edit(story)">Изменить</button>
             <button class="btn btn-danger btn-sm" (click)="delete(story)">Удалить</button>
