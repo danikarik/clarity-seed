@@ -66,6 +66,7 @@ export class StoryService {
 
   /** POST: add a new hero to the server */
   addStory (story: Story): Observable<Story> {
+    console.log(story);
     return this.http.post<Story>(this.storiesUrl, story, httpOptions).pipe(
       tap((story: Story) => this.log(`added story w/ id=${story.id}`)),
       catchError(this.handleError<Story>('addStory'))
@@ -85,6 +86,7 @@ export class StoryService {
 
   /** PUT: update the hero on the server */
   updateStory (story: Story): Observable<any> {
+    console.log(story);
     return this.http.put(this.storiesUrl, story, httpOptions).pipe(
       tap(_ => this.log(`updated story id=${story.id}`)),
       catchError(this.handleError<any>('updateStory'))

@@ -60,7 +60,6 @@ export class StoryComponent implements OnInit {
         .subscribe(story => {
           this.stories.push(story);
         });
-      form.reset();
     } else {
       this.storyService.updateStory(this.model)
       .subscribe(() => this.goBack(this.model));
@@ -102,6 +101,10 @@ export class StoryComponent implements OnInit {
   delete(story: Story): void {
     this.stories = this.stories.filter(h => h !== story);
     this.storyService.deleteStory(story).subscribe();
+  }
+
+  clear(): void {
+      this.model = new Story();
   }
 
   calculateAge() {
