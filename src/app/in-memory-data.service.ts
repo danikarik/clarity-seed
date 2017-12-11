@@ -6,21 +6,22 @@ export class InMemoryDataService implements InMemoryDbService {
         const stories = [
             {
                 id: 11,
-                receiptDate: "01.12.2017 11:22:00",
-                dischargeDate: "04.12.2017 11:22:00",
+                receiptDate: "2017-12-04",
+                receiptTime: "11:22",
+                dischargeDate: "2017-12-11",
+                dischargeTime: "10:00",
                 department: "Хоз рассчет",
-                ward: "110",
-                cotDays: 3,
-                bloodGroup: "4",
+                bloodGroup: "IV",
                 rH: true,
-                name: "Ivanov Ivan",
+                firstName: "Иван",
+                lastName: "Иванов",
+                middleName: "Иванович",
+                name: "Иванов Иван Иванович",
                 age: 25,
-                diagnosis: "bolen",
                 emergency: true,
                 plan: false,
-                firstTime: true,
-                initialTreatment: "doma",
-                doctor: "iBolit",
+                dischargeTreatment: "Лечение",
+                doctor: "В.В. Раевский"
             }
         ];
         return { stories };
