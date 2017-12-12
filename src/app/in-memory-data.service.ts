@@ -21,9 +21,19 @@ export class InMemoryDataService implements InMemoryDbService {
                 emergency: true,
                 plan: false,
                 dischargeTreatment: "Лечение",
-                doctor: "В.В. Раевский"
+                doctor: "Доктор 1"
             }
         ];
-        return { stories };
+        const notes = [
+            {
+                id: 11,
+                type: "Дневник",
+                date: "2017-12-04",
+                time: "15:10",
+                doctor: "Доктор 1",
+                text: "Состояние хорошие"
+            }
+        ];
+        return { stories, notes };
     }
 }

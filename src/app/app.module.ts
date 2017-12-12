@@ -17,6 +17,8 @@ import { DictService } from './dict.service';
 import { JournalsComponent } from './journals/journals.component';
 import { OperationsComponent } from './operations/operations.component';
 import { DiagnosesComponent } from './diagnoses/diagnoses.component';
+import { NotesComponent } from './notes/notes.component';
+import { NotesService } from './notes.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import { DiagnosesComponent } from './diagnoses/diagnoses.component';
         StoryComponent,
         JournalsComponent,
         OperationsComponent,
-        DiagnosesComponent
+        DiagnosesComponent,
+        NotesComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -40,7 +43,7 @@ import { DiagnosesComponent } from './diagnoses/diagnoses.component';
         ClarityModule,
         ROUTING
     ],
-    providers: [HeaderService, StoryService, DictService],
+    providers: [HeaderService, StoryService, DictService, NotesService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

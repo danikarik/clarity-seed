@@ -11,6 +11,7 @@ import { StoryComponent } from './story/story.component';
 import { JournalsComponent } from './journals/journals.component';
 import { OperationsComponent } from './operations/operations.component';
 import { DiagnosesComponent } from './diagnoses/diagnoses.component';
+import { NotesComponent } from './notes/notes.component';
 
 
 export const ROUTES: Routes = [
@@ -19,7 +20,8 @@ export const ROUTES: Routes = [
     {path: 'stories', component: StoryComponent},
     {path: 'journals', component: JournalsComponent},
     {path: 'operations', component: OperationsComponent},
-    {path: 'diagnoses', component: DiagnosesComponent}    
+    {path: 'diagnoses', component: DiagnosesComponent},
+    {path: 'notes', component: NotesComponent}
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

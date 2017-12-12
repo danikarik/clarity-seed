@@ -10,7 +10,9 @@
       <span class="nav-text">Истории болезни</span>
     </a>
     <!-- FOR DOCTOR -->
-
+    <a *ngIf="header.user === 'admin' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/notes']" routerLinkActive="active">
+      <span class="nav-text">Записки врача</span>
+    </a>
     <a *ngIf="header.user === 'admin' || header.user === 'nurse'" class="nav-link" href="#" [routerLink]="['/journals']" routerLinkActive="active">
       <span class="nav-text">Журналы</span>
     </a>

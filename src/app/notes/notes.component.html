@@ -1,0 +1,109 @@
+<button class="btn btn-primary" (click)="open = true; add()">Добавить</button>
+
+<clr-modal [(clrModalOpen)]="open" [clrModalSize]="'xl'" [clrModalStaticBackdrop]="true">
+  <h3 class="modal-title">Запись врача</h3>
+  <div class="modal-body">
+    <form #noteForm="ngForm" (ngSubmit)="onSubmit(noteForm)" class="compact row">
+
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label class="required" for="noteStory">История болезни</label>
+          <div class="select">
+            <select #noteStory id="noteStory" name="noteStory" (change)="setDoctor(noteStory.value)" required>
+              <option value="">Выберите значение</option>
+              <option *ngFor="let story of stories" [value]="story.id">{{story.id}} - {{story.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label class="required" for="noteType">Тип записи</label>
+          <div class="select">
+            <select id="noteType" name="noteType" [(ngModel)]="model.type" required>
+              <option value="">Выберите значение</option>
+              <option *ngFor="let type of dictService.getNoteTypes()" [value]="type">{{type}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label class="required" for="noteDoctor">Врач</label>
+          <div class="select">
+            <select id="noteDoctor" name="noteDoctor" [(ngModel)]="model.doctor" required>
+              <option value="">Выберите значение</option>
+              <option *ngFor="let doct of dictService.getDoctors()" [value]="doct">{{doct}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="noteDate">Дата</label>
+          <input type="date" name="noteDate" id="noteDate" [(ngModel)]="model.date">
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="noteTime">Время</label>
+          <input type="time" name="noteTime" id="noteTime" [(ngModel)]="model.time">
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="noteText">Текст</label>
+          <textarea name="noteText" id="noteText" rows="10" [(ngModel)]="model.text"></textarea>
+        </div>
+      </div>
+
+      <div class="col-xs-6">
+        <button class="btn btn-primary" type="submit" [disabled]="noteForm.form.invalid || submitted">
+          Сохранить
+        </button>
+      </div>
+    </form>
+    <div [hidden]="!submitted">
+      <div class="alert alert-success">
+        <div class="alert-items">
+          <div class="alert-item static">
+            <div class="alert-icon-wrapper">
+              <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+            </div>
+            <span class="alert-text">Запись успешно добавлена/изменена</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="open = false">Готово</button>
+  </div>
+</clr-modal>
+
+<clr-datagrid>
+  <clr-dg-column>Дата и время</clr-dg-column>
+  <clr-dg-column>Вид осмотра</clr-dg-column>
+  <clr-dg-column>Врач</clr-dg-column>
+
+  <clr-dg-row *clrDgItems="let note of notes">
+    <clr-dg-cell>{{note.date}} {{note.time}}</clr-dg-cell>
+    <clr-dg-cell>{{note.type}}</clr-dg-cell>
+    <clr-dg-cell>{{note.doctor}}</clr-dg-cell>
+
+    <clr-dg-row-detail *clrIfExpanded="expand">
+      <button class="btn btn-primary btn-sm" (click)="edit(note)">Изменить</button>
+      <button class="btn btn-danger btn-sm" (click)="delete(note)">Удалить</button>
+      <button class="btn btn-success btn-sm" (click)="print(note)">Печать</button>
+    </clr-dg-row-detail>
+  </clr-dg-row>
+  <clr-dg-footer>
+    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} из {{pagination.totalItems}} записей
+    <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>
