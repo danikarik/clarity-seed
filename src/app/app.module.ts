@@ -11,20 +11,22 @@ import { ROUTING } from "./app.routing";
 import { HeaderComponent } from './header/header.component';
 import { HeaderService } from './header.service';
 import { LoginComponent } from './login/login.component';
-import { StoryDetailComponent } from './story-detail/story-detail.component';
 import { StoryService } from "./story.service";
 import { StoryComponent } from './story/story.component';
-import { StorySearchComponent } from './story-search/story-search.component';
 import { DictService } from './dict.service';
+import { JournalsComponent } from './journals/journals.component';
+import { OperationsComponent } from './operations/operations.component';
+import { DiagnosesComponent } from './diagnoses/diagnoses.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
         LoginComponent,
-        StoryDetailComponent,
         StoryComponent,
-        StorySearchComponent
+        JournalsComponent,
+        OperationsComponent,
+        DiagnosesComponent
     ],
     imports: [
         BrowserAnimationsModule,

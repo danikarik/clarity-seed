@@ -6,8 +6,23 @@
     </a>
   </div>
   <div class="header-nav" [clr-nav-level]="1">
-    <a *ngIf="header.user === 'admin' || header.user === 'nurse'" class="nav-link" href="#" [routerLink]="['/stories']" routerLinkActive="active">
-      <span class="nav-text">Журнал</span>
+    <a *ngIf="header.user === 'admin' || header.user === 'register' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/stories']" routerLinkActive="active">
+      <span class="nav-text">Истории болезни</span>
+    </a>
+    <!-- FOR DOCTOR -->
+
+    <a *ngIf="header.user === 'admin' || header.user === 'nurse'" class="nav-link" href="#" [routerLink]="['/journals']" routerLinkActive="active">
+      <span class="nav-text">Журналы</span>
+    </a>
+    <!-- REST STUFF -->
+    <a class="nav-link" href="#">
+      <span class="nav-text">Отчеты</span>
+    </a>
+    <a *ngIf="header.user === 'admin' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/operations']" routerLinkActive="active">
+      <span class="nav-text">Операции</span>
+    </a>
+    <a *ngIf="header.user === 'admin' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/diagnoses']" routerLinkActive="active">
+      <span class="nav-text">Диагнозы</span>
     </a>
   </div>
   <div class="header-actions">

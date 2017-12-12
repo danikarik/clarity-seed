@@ -7,15 +7,19 @@ import { ModuleWithProviders } from '@angular/core/src/metadata/ng_module';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { StoryDetailComponent } from './story-detail/story-detail.component';
 import { StoryComponent } from './story/story.component';
+import { JournalsComponent } from './journals/journals.component';
+import { OperationsComponent } from './operations/operations.component';
+import { DiagnosesComponent } from './diagnoses/diagnoses.component';
 
 
 export const ROUTES: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'stories', component: StoryComponent},
-    {path: 'detail/:id', component: StoryDetailComponent}
+    {path: 'journals', component: JournalsComponent},
+    {path: 'operations', component: OperationsComponent},
+    {path: 'diagnoses', component: DiagnosesComponent}    
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

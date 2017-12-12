@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderService } from 'app/header.service';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -33,8 +34,27 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.header.setUser(this.form.get('userName').value);
-      this.router.navigate(['/stories']);
+      let userName = this.form.get('userName').value;
+      this.header.setUser(userName);
+      switch (userName) {
+        case "admin": {
+          this.router.navigate(['/stories']);
+          break;
+        }
+        case "register": {
+          this.router.navigate(['/stories']);
+          break;
+        }
+        case "nurse": {
+          this.router.navigate(['/journals']);
+          break;
+        }
+        case "doctor": {
+          this.router.navigate(['/stories']);
+          break;
+        }
+      }
+      
     }
     this.formSubmitAttempt = true;
   }
