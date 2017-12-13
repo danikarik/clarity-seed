@@ -21,7 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 emergency: true,
                 plan: false,
                 dischargeTreatment: "Лечение",
-                doctor: "Доктор 1"
+                doctor: "В.В. Раевский"
             }
         ];
         const notes = [
@@ -30,7 +30,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 type: "Дневник",
                 date: "2017-12-04",
                 time: "15:10",
-                doctor: "Доктор 1",
+                doctor: "В.В. Раевский",
                 text: "Состояние хорошие"
             }
         ];

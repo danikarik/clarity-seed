@@ -178,12 +178,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="insuranceCompany">Наименование страховой компании</label>
-                                    <div class="select">
-                                        <select id="insuranceCompany" name="insuranceCompany" [(ngModel)]="model.insuranceCompany">
-                                            <option value="">Выберите значение</option>
-                                            <option *ngFor="let ic of insuranceCompanies" [value]="ic">{{ic}}</option>
-                                        </select>
-                                    </div>
+                                    <input type="text" name="insuranceCompany" id="insuranceCompany" [(ngModel)]="model.insuranceCompany">
                                 </div>
                             </fieldset>
                             <br>
@@ -408,12 +403,7 @@
                                 <div class="form-group row">
                                     <div class="col-xs-6">
                                         <label for="injuryType">Вид травмы</label>
-                                        <div class="select">
-                                            <select id="injuryType" name="injuryType" [(ngModel)]="model.injuryType">
-                                                <option value="">Выберите значение</option>
-                                                <option *ngFor="let inj of injuryTypes" [value]="inj">{{inj}}</option>
-                                            </select>
-                                        </div>
+                                        <input type="text" name="injuryType" id="injuryType" [(ngModel)]="model.injuryType">
                                     </div>
                                     <div class="col-xs-6">
                                         <label for="transportType">Вид транспорт</label>
@@ -466,23 +456,13 @@
                                         <label for="dischargeResult">Исход прибывания</label>
                                     </div>
                                     <div class="col-xs-8">
-                                        <div class="select">
-                                            <select id="dischargeResult" name="dischargeResult" [(ngModel)]="model.dischargeResult">
-                                                <option value="">Выберите значение</option>
-                                                <option *ngFor="let disr of dischargeResults" [value]="disr">{{disr}}</option>
-                                            </select>
-                                        </div>
+                                        <input type="text" name="dischargeResult" id="dischargeResult" [(ngModel)]="model.dischargeResult">
                                     </div>
                                     <div class="col-xs-4">
                                         <label for="dischargeTreatment">Исход лечения</label>
                                     </div>
                                     <div class="col-xs-8">
-                                        <div class="select">
-                                            <select id="dischargeTreatment" name="dischargeTreatment" [(ngModel)]="model.dischargeTreatment">
-                                                <option value="">Выберите значение</option>
-                                                <option *ngFor="let dist of dischargeTreatments" [value]="dist">{{dist}}</option>
-                                            </select>
-                                        </div>
+                                        <input type="text" name="dischargeTreatment" id="dischargeTreatment" [(ngModel)]="model.dischargeTreatment">
                                     </div>
                                 </div>
                             </fieldset>
