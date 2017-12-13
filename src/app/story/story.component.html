@@ -73,12 +73,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="required" for="nationality">Национальность</label>
-                                    <div class="select">
-                                        <select id="nationality" name="nationality" [(ngModel)]="model.nationality" required>
-                                            <option value="">Выберите значение</option>
-                                            <option *ngFor="let nation of nationality" [value]="nation">{{nation}}</option>
-                                        </select>
-                                    </div>
+                                    <label for="nationality" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nationalityInput.invalid && (nationalityInput.dirty || nationalityInput.touched)">
+                                        <input type="text" id="nationality" placeholder="Введите национальность пациента" name="nationality" [(ngModel)]="model.nationality"
+                                            #nationalityInput="ngModel" required>
+                                        <span class="tooltip-content">
+                                            Обязательное поле
+                                        </span>
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <label class="required" for="regDate">Дата регистрации</label>
@@ -319,7 +320,8 @@
                                 <div class="form-group">
                                     <label class="required" for="receiptDateDep">Дата поступления в отд.</label>
                                     <label for="receiptDateDep" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="receiptDateDepInput.invalid && (receiptDateDepInput.dirty || receiptDateDepInput.touched)">
-                                        <input type="date" id="receiptDateDep" name="receiptDateDep" [(ngModel)]="model.receiptDateDep" #receiptDateDepInput="ngModel" required>
+                                        <input type="date" id="receiptDateDep" name="receiptDateDep" [(ngModel)]="model.receiptDateDep" #receiptDateDepInput="ngModel"
+                                            required>
                                         <span class="tooltip-content">
                                             Обязательное поле
                                         </span>
@@ -328,7 +330,8 @@
                                 <div class="form-group">
                                     <label class="required" for="receiptTimeDep">Время поступления в отд.</label>
                                     <label for="receiptTimeDep" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="receiptTimeDepInput.invalid && (receiptTimeDepInput.dirty || receiptTimeDepInput.touched)">
-                                        <input type="time" id="receiptTimeDep" name="receiptTimeDep" [(ngModel)]="model.receiptTimeDep" #receiptTimeDepInput="ngModel" required>
+                                        <input type="time" id="receiptTimeDep" name="receiptTimeDep" [(ngModel)]="model.receiptTimeDep" #receiptTimeDepInput="ngModel"
+                                            required>
                                         <span class="tooltip-content">
                                             Обязательное поле
                                         </span>
