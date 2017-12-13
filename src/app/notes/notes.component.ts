@@ -12,85 +12,106 @@ import { NotesService } from '../notes.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+    selector: 'app-notes',
+    templateUrl: './notes.component.html',
+    styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
 
-  public open: boolean = false;
+    public open: boolean = false;
 
-  model: Note = new Note();
-  notes: Note[];
-  stories: Story[];
+    model: Note = new Note();
+    notes: Note[];
+    stories: Story[];
 
-  submitted: boolean = false;
-  editted: boolean = false;
+    submitted: boolean = false;
+    editted: boolean = false;
 
-  constructor(
-    public header: HeaderService,
-    public dictService: DictService,
-    private notesService: NotesService,
-    private storyService: StoryService) { }
+    blocks: any[] = [
+        { title: "Жалобы при поступлении", content: "" },
+        { title: "Anamnesis morbi", content: "" },
+        { title: "Anamnesis vitae", content: "" },
+        { title: "Объективно", content: "" },
+        { title: "Per Rectum", content: "" },
+        { title: "ОБОСНОВАНИЕ", content: "" },
+        { title: "ДИАГНОЗ", content: "" }
+    ];
 
-  ngOnInit() {
-    this.header.show();
-    this.getNotes();
-    this.getStories();
-  }
+    useBlocks: boolean = false;
+    editModal: boolean = false;
 
-  onSubmit(form: NgForm): void {
-    this.submitted = true;
-    if (!this.editted) {
-      this.notesService.addNote(this.model)
-        .subscribe(note => {
-          this.notes.push(note);
-        });
-      form.reset();
-    } else {
-      this.notesService.updateNote(this.model)
-        .subscribe(() => this.goBack(this.model));
+    constructor(
+        public header: HeaderService,
+        public dictService: DictService,
+        private notesService: NotesService,
+        private storyService: StoryService) { }
+
+    ngOnInit() {
+        this.header.show();
+        this.getNotes();
+        this.getStories();
     }
-  }
 
-  getStories(): void {
-    this.storyService.getStories()
-      .subscribe(stories => this.stories = stories);
-  }
+    onSubmit(form: NgForm): void {
+        this.submitted = true;
 
-  getNotes(): void {
-    this.notesService.getNotes()
-      .subscribe(notes => this.notes = notes);
-  }
+        if (this.useBlocks) {
+            this.model.text = "";
+            for (let block of this.blocks) {
+                this.model.text += block.title + ": \n" + block.content + "\n\n";
+            }
+        }
 
-  goBack(note: Note): void {
-    this.model = note;
-  }
+        if (!this.editted) {
+            this.notesService.addNote(this.model)
+                .subscribe(note => {
+                    this.notes.push(note);
+                });
+            form.reset();
+        } else {
+            this.notesService.updateNote(this.model)
+                .subscribe(() => this.goBack(this.model));
+        }
+    }
 
-  add() {
-    this.model = new Note();
-    this.submitted = false;
-    this.editted = false;
-  }
+    getStories(): void {
+        this.storyService.getStories()
+            .subscribe(stories => this.stories = stories);
+    }
 
-  edit(note: Note): void {
-    this.model = note;
-    this.open = true;
-    this.submitted = false;
-    this.editted = true;
-  }
+    getNotes(): void {
+        this.notesService.getNotes()
+            .subscribe(notes => this.notes = notes);
+    }
 
-  delete(note: Note): void {
-    this.notes = this.notes.filter(h => h !== note);
-    this.notesService.deleteNote(note).subscribe();
-  }
+    goBack(note: Note): void {
+        this.model = note;
+    }
 
-  print(note: Note): void {
-    console.log(note.text);
-  }
+    add() {
+        this.model = new Note();
+        this.submitted = false;
+        this.editted = false;
+    }
 
-  setDoctor(id: number): void {
-    this.storyService.getStory(id)
-      .subscribe(story => this.model.doctor = story.doctor);
-  }
+    edit(note: Note): void {
+        this.model = note;
+        this.open = true;
+        this.submitted = false;
+        this.editted = true;
+    }
+
+    delete(note: Note): void {
+        this.notes = this.notes.filter(h => h !== note);
+        this.notesService.deleteNote(note).subscribe();
+    }
+
+    print(note: Note): void {
+        console.log(note.text);
+    }
+
+    setDoctor(id: number): void {
+        this.storyService.getStory(id)
+            .subscribe(story => this.model.doctor = story.doctor);
+    }
 }
