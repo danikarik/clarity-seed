@@ -12,6 +12,7 @@ import { JournalsComponent } from './journals/journals.component';
 import { OperationsComponent } from './operations/operations.component';
 import { DiagnosesComponent } from './diagnoses/diagnoses.component';
 import { NotesComponent } from './notes/notes.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 
 export const ROUTES: Routes = [
@@ -21,7 +22,9 @@ export const ROUTES: Routes = [
     {path: 'journals', component: JournalsComponent},
     {path: 'operations', component: OperationsComponent},
     {path: 'diagnoses', component: DiagnosesComponent},
-    {path: 'notes', component: NotesComponent}
+    {path: 'notes', component: NotesComponent},
+    {path: 'appointments', component: AppointmentComponent}
+
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

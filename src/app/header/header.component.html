@@ -13,6 +13,9 @@
     <a *ngIf="header.user === 'admin' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/notes']" routerLinkActive="active">
       <span class="nav-text">Записки врача</span>
     </a>
+    <a *ngIf="header.user === 'admin' || header.user === 'doctor'" class="nav-link" href="#" [routerLink]="['/appointments']" routerLinkActive="active">
+        <span class="nav-text">Назначения</span>
+      </a>
     <a *ngIf="header.user === 'admin' || header.user === 'nurse'" class="nav-link" href="#" [routerLink]="['/journals']" routerLinkActive="active">
       <span class="nav-text">Журналы</span>
     </a>

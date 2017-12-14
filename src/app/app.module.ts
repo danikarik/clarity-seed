@@ -19,6 +19,7 @@ import { OperationsComponent } from './operations/operations.component';
 import { DiagnosesComponent } from './diagnoses/diagnoses.component';
 import { NotesComponent } from './notes/notes.component';
 import { NotesService } from './notes.service';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { NotesService } from './notes.service';
         JournalsComponent,
         OperationsComponent,
         DiagnosesComponent,
-        NotesComponent
+        NotesComponent,
+        AppointmentComponent
     ],
     imports: [
         BrowserAnimationsModule,
